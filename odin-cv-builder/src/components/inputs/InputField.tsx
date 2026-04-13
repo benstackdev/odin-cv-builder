@@ -11,6 +11,7 @@ function InputField({ label, inputID, updateHandler, ...props }: InputFieldProps
     <>
       <label htmlFor={inputID}>
         {label}
+        <br />
         <input {...props} type={props.type ?? "text"} id={inputID} onChange={updateHandler} />
       </label>
     </>

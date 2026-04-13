@@ -11,6 +11,7 @@ function TextAreaField({ label, textAreaID, updateHandler, ...props }: TextAreaF
     <>
       <label htmlFor={textAreaID}>
         {label}
+        <br />
         <textarea {...props} id={textAreaID} onChange={updateHandler} />
       </label>
     </>

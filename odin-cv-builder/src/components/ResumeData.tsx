@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import type { ResumeFieldProps } from "./ResumeField";
-import { Resume } from "./Resume";
+import { ResumeForm } from "./ResumeForm";
 
 const ResumeDataContext = createContext(null);
 
@@ -242,7 +242,7 @@ function ResumeData() {
       <pre>{JSON.stringify(generalInfo, null, 2)}</pre>
       <pre>{JSON.stringify(educationInfo, null, 2)}</pre>
       <pre>{JSON.stringify(practicalInfo, null, 2)}</pre>
-      <Resume />
+      <ResumeForm className="flex-col" />
     </ResumeDataContext>
   );
 }
