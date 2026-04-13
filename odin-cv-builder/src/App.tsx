@@ -1,8 +1,9 @@
-import './App.css';
+import { ResumeData } from './components/ResumeData.tsx';
+import './styles/App.css';
 
 function App() {
   return (
-    <h1>Hello World!</h1>
+    <ResumeData />
   );
 }
 
