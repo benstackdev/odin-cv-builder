@@ -1,15 +1,8 @@
-import { useContext } from "react";
 import { ResumeField } from "./ResumeField";
-import { ResumeDataContext } from "./ResumeData";
 import "../styles/Resume.css";
+import { educationInfoFields, generalInfoFields, practicalInfoFields } from "../data/field-data";
 
 function ResumeForm({ className }: { className: string; }) {
-  const {
-    generalInfoFields,
-    educationInfoFields,
-    practicalInfoFields
-  } = useContext(ResumeDataContext);
-
   return (
     <div className={className}>
       <h2>General Info</h2>

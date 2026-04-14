@@ -2,17 +2,16 @@ import type { InputHTMLAttributes } from "react";
 
 export type InputFieldProps = {
   label: string,
-  inputID: string,
-  updateHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  inputID: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-function InputField({ label, inputID, updateHandler, ...props }: InputFieldProps) {
+function InputField({ label, inputID, ...props }: InputFieldProps) {
   return (
     <>
       <label htmlFor={inputID}>
         {label}
         <br />
-        <input {...props} type={props.type ?? "text"} id={inputID} onChange={updateHandler} />
+        <input {...props} type={props.type ?? "text"} id={inputID} />
       </label>
     </>
   );
