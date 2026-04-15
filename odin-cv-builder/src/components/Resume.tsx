@@ -6,27 +6,29 @@ const ResumeDataContext = createContext(null);
 
 // TODO: refactor to allow multiple education and practical sections (make list?)
 interface ResumeInfo {
-  generalInfo: ResumeGeneralInfo,
-  educationInfo: ResumeEducationInfo,
-  practicalInfo: ResumePracticalInfo;
+  generalInfoFields: ResumeGeneralInfo,
+  educationInfoFields: ResumeEducationInfo[],
+  practicalInfoFields: ResumePracticalInfo;
 }
 
 function Resume() {
   const [resumeInfo, setResumeInfo] = useState<ResumeInfo | undefined>({
-    generalInfo: {
+    generalInfoFields: {
       name: "",
       email: "",
       phone: "",
       website: ""
     },
-    educationInfo: {
-      schoolName: "",
-      programName: "",
-      programStart: "",
-      programEnd: "",
-      gpa: ""
-    },
-    practicalInfo: {
+    educationInfoFields: [
+      {
+        schoolName: "",
+        programName: "",
+        programStart: "",
+        programEnd: "",
+        gpa: ""
+      },
+    ],
+    practicalInfoFields: {
       companyName: "",
       jobTitle: "",
       jobStart: "",
@@ -41,8 +43,31 @@ function Resume() {
     });
   };
 
+  const addEducationExperience = () => {
+    setResumeInfo((prevResumeInfo) => {
+      const newEducationExperience: ResumeEducationInfo = {
+        schoolName: "",
+        programName: "",
+        programStart: "",
+        programEnd: "",
+        gpa: ""
+      };
+      return {
+        ...prevResumeInfo,
+        educationInfoFields: [
+          ...prevResumeInfo.educationInfoFields,
+          newEducationExperience
+        ]
+      };
+    });
+  };
+
   return (
-    <ResumeDataContext value={{ resumeInfo, updateResumeInfo }}>
+    <ResumeDataContext value={{
+      resumeInfo,
+      updateResumeInfo,
+      addEducationExperience
+    }}>
       <h1>Resume</h1>
       <pre>{JSON.stringify(resumeInfo, null, 2)}</pre>
       <br />
