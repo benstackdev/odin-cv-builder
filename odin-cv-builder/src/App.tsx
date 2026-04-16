@@ -1,8 +1,9 @@
 import './App.css';
+import { Resume } from './components/Resume';
 
 function App() {
   return (
-    <h1>Hello World!</h1>
+    <Resume />
   );
 }
 
