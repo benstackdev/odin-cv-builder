@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { ResumeGeneral } from "./ResumeGeneral";
 
 const ResumeContext = createContext(null);
 
@@ -8,6 +9,9 @@ function Resume() {
 
   return (
     <ResumeContext value={isEditing}>
+      <h1>Resume</h1>
+      <ResumeGeneral />
+      <br />
       <button onClick={toggleEditing}>
         {isEditing ? "Save" : "Edit"}
       </button>
@@ -15,4 +19,4 @@ function Resume() {
   );
 }
 
-export { Resume };
+export { Resume, ResumeContext };
