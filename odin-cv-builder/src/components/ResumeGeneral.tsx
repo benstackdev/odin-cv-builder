@@ -1,25 +1,9 @@
-import { createContext, useContext, useState } from "react";
+import { useContext } from "react";
 import { ResumeContext } from "./Resume";
 import { ResumeInput } from "./inputs/ResumeInput";
 
-export interface ResumeGeneralData {
-  name: string,
-  email: string,
-  phoneNumber: string,
-  website: string;
-}
-
-const ResumeGeneralContext = createContext(null);
-
-function ResumeGeneral() {
+function ResumeGeneral({ generalData, setGeneralData }) {
   const isEditing = useContext(ResumeContext);
-
-  const [generalData, setGeneralData] = useState({
-    name: "",
-    email: "",
-    phoneNumber: "",
-    website: ""
-  } as ResumeGeneralData);
 
   const updateGeneralData = (key: string, value: string) => {
     setGeneralData((prevGeneralData) => {
@@ -29,14 +13,35 @@ function ResumeGeneral() {
 
   if (isEditing) {
     return (
-      <ResumeGeneralContext value={{ generalData, updateGeneralData }}>
-        <h3>General Info:</h3>
-        <pre>{JSON.stringify(generalData)}</pre>
-        <ResumeInput parentKey="name" labelName="Name: " value={generalData.name} />
-        <ResumeInput parentKey="email" labelName="Email: " value={generalData.email} type="email" />
-        <ResumeInput parentKey="phoneNumber" labelName="Phone Number: " value={generalData.phoneNumber} type="tel" />
-        <ResumeInput parentKey="website" labelName="Website: " value={generalData.website} type="url" />
-      </ResumeGeneralContext>
+      <>
+        <h3>General Info</h3>
+        <ResumeInput
+          parentKey="name"
+          labelName="Name: "
+          updateHandler={updateGeneralData}
+          value={generalData.name}
+        />
+        <ResumeInput
+          parentKey="email"
+          labelName="Email: "
+          updateHandler={updateGeneralData}
+          value={generalData.email} type="email"
+        />
+        <ResumeInput
+          parentKey="phoneNumber"
+          labelName="Phone Number: "
+          updateHandler={updateGeneralData}
+          value={generalData.phoneNumber}
+          type="tel"
+        />
+        <ResumeInput
+          parentKey="website"
+          labelName="Website: "
+          updateHandler={updateGeneralData}
+          value={generalData.website}
+          type="url"
+        />
+      </>
     );
   }
 
@@ -51,4 +56,4 @@ function ResumeGeneral() {
   );
 }
 
-export { ResumeGeneral, ResumeGeneralContext };
+export { ResumeGeneral };

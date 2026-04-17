@@ -1,17 +1,13 @@
-import { useContext, type InputHTMLAttributes } from "react";
-import { ResumeGeneralContext } from "../ResumeGeneral";
+import { type InputHTMLAttributes } from "react";
 
 export type ResumeInputProps = {
   parentKey: string,
-  labelName: string;
+  labelName: string,
+  updateHandler: (key: string, value: string) => void;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-function ResumeInput({ parentKey, labelName, ...props }: ResumeInputProps) {
-  const { updateGeneralData } = useContext(ResumeGeneralContext);
-
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateGeneralData(parentKey, e.target.value);
-  };
+function ResumeInput({ parentKey, labelName, updateHandler, ...props }: ResumeInputProps) {
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => updateHandler(parentKey, e.target.value);
 
   return (
     <>
