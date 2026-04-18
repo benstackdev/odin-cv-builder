@@ -3,6 +3,7 @@ import { ResumeGeneral } from "./ResumeGeneral";
 import { ResumeEducation } from "./ResumeEducation";
 import type { ResumeEducationData, ResumeGeneralData, ResumePracticalData } from "./ResumeInterfaces";
 import { ResumePractical } from "./ResumePractical";
+import "../styles/App.css";
 
 const ResumeContext = createContext(null);
 
@@ -71,74 +72,99 @@ function Resume() {
 
   // Conditional buttons
   const addEdExpButton = isEditing ? (
-    <button onClick={addEducationExperience}>
+    <button
+      onClick={addEducationExperience}
+      className="bg-green font-size-2 padding-2 margin-1 width-fit align-center border-radius-1">
       Add Education Experience
     </button>
   ) : null;
   const addPracticalExpButton = isEditing ? (
-    <button onClick={addPracticalExperience}>
+    <button
+      onClick={addPracticalExperience}
+      className="bg-green font-size-2 padding-2 margin-1 width-fit align-center border-radius-1">
       Add Practical Experience
     </button>
   ) : null;
 
   return (
     <ResumeContext value={isEditing}>
-      <h1>Resume</h1>
-      {/* <pre>{JSON.stringify(generalData, null, 2)}</pre> */}
-      <ResumeGeneral
-        generalData={generalData}
-        setGeneralData={setGeneralData}
-      />
-      <br />
-      {/* <pre>{JSON.stringify(educationDataList, null, 2)}</pre> */}
-      {educationDataList.map((edExp) => {
-        // Conditionally render delete button
-        const delButton = isEditing ? (
-          <button onClick={() => deleteEducationExperience(edExp.key)}>
-            Delete Education Experience
+      <div className="width-fill flex-center flex-col">
+        <h1 className="flex-center margin-bottom-2 font-size-5">Resume Builder</h1>
+        <div className="flex-center flex-col padding-1">
+          {isEditing ? <h3 className="flex-center font-size-4 margin-top-2 col-blue">General Info</h3> : null}
+          <ResumeGeneral
+            generalData={generalData}
+            setGeneralData={setGeneralData}
+          />
+          {!isEditing ? <hr /> : null}
+          <h3 className=
+            {isEditing ? "flex-center font-size-4 margin-top-2 col-blue"
+              : "flex font-size-4 margin-top-3 col-black"}>
+            Education</h3>
+          {educationDataList.map((edExp) => {
+            // Conditionally render delete button
+            const delButton = isEditing ? (
+              <button
+                onClick={() => deleteEducationExperience(edExp.key)}
+                className="
+                    align-center font-size-2 padding-2 margin-1 
+                    bg-red col-black border-radius-1 width-fit">
+                Delete Education Experience
+              </button>
+            ) : null;
+            return (
+              <div className=
+                {isEditing ?
+                  "flex-center flex-col padding-3 bg-blue border-radius-2 margin-bottom-2 margin-top-2"
+                  : "flex-center flex-col margin-bottom-1 margin-top-1"}>
+                <ResumeEducation
+                  key={edExp.key}
+                  educationData={edExp}
+                  setEducationData={changeEducationData}
+                />
+                {delButton}
+              </div>
+            );
+          })}
+          {addEdExpButton}
+          {!isEditing ? <hr /> : null}
+          <h3 className=
+            {isEditing ? "flex-center font-size-4 margin-top-2 col-blue"
+              : "flex font-size-4 margin-top-3 col-black"}>
+            Practical Experience</h3>
+          {practicalDataList.map((practicalExp) => {
+            // Conditionally render delete button
+            const delButton = isEditing ? (
+              <button
+                onClick={() => deletePracticalExperience(practicalExp.key)}
+                className="font-size-2 padding-2 margin-1 
+                bg-red border-radius-1 width-fit align-center">
+                Delete Practical Experience
+              </button>
+            ) : null;
+            return (
+              <div className=
+                {isEditing ?
+                  "flex-center flex-col padding-3 bg-blue border-radius-2 margin-bottom-2 margin-top-2"
+                  : "flex-center flex-col margin-bottom-1 margin-top-1"}>
+                <ResumePractical
+                  key={practicalExp.key}
+                  practicalData={practicalExp}
+                  setPracticalData={changePracticalData}
+                />
+                {delButton}
+              </div>
+            );
+          })}
+          {addPracticalExpButton}
+          <button
+            onClick={toggleEditing}
+            className="font-size-2 padding-2 margin-2 
+                      border-radius-1 width-fit bg-grey align-center">
+            {isEditing ? "Save" : "Edit"}
           </button>
-        ) : null;
-
-        return (
-          <>
-            <ResumeEducation
-              key={edExp.key}
-              educationData={edExp}
-              setEducationData={changeEducationData}
-            />
-            {delButton}
-          </>
-        );
-      })}
-      <br />
-      {addEdExpButton}
-      <br />
-      {/* <pre>{JSON.stringify(practicalDataList, null, 2)}</pre> */}
-      {practicalDataList.map((practicalExp) => {
-        // Conditionally render delete button
-        const delButton = isEditing ? (
-          <button onClick={() => deletePracticalExperience(practicalExp.key)}>
-            Delete Practical Experience
-          </button>
-        ) : null;
-
-        return (
-          <>
-            <ResumePractical
-              key={practicalExp.key}
-              practicalData={practicalExp}
-              setPracticalData={changePracticalData}
-            />
-            {delButton}
-          </>
-        );
-      })}
-      <br />
-      {addPracticalExpButton}
-      <br />
-      <button onClick={toggleEditing}>
-        {isEditing ? "Save" : "Edit"}
-      </button>
+        </div>
+      </div>
     </ResumeContext>
   );
 }

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { ResumeContext } from "./Resume";
 import { ResumeInput } from "./inputs/ResumeInput";
+import { addMonths, format } from "date-fns";
 
 function ResumeEducation({ educationData, setEducationData }) {
   const isEditing = useContext(ResumeContext);
@@ -9,39 +10,47 @@ function ResumeEducation({ educationData, setEducationData }) {
     setEducationData(educationData.key, key, value);
   };
 
+  const startDate = (educationData.programStart !== "") ?
+    format(addMonths(new Date(educationData.programStart), 1), "MMM, yyyy")
+    : "";
+  const endDate = (educationData.programEnd !== "") ?
+    format(addMonths(new Date(educationData.programEnd), 1), "MMM, yyyy")
+    : "Present";
+
   if (isEditing) {
     return (
-      <>
-        <h3>Education Experience</h3>
+      <div>
         <ResumeInput
           parentKey="schoolName"
-          labelName="School Name: "
+          labelName="School Name "
           updateHandler={updateEducationData}
           value={educationData.schoolName}
         />
         <ResumeInput
           parentKey="programName"
-          labelName="Program Name: "
+          labelName="Program Name "
           updateHandler={updateEducationData}
           value={educationData.programName}
         />
         <ResumeInput
+          className="width-fit"
           parentKey="programStart"
-          labelName="Program Start: "
+          labelName="Program Start "
           updateHandler={updateEducationData}
           value={educationData.programStart}
           type="month"
         />
         <ResumeInput
+          className="width-fit"
           parentKey="programEnd"
-          labelName="Program End: "
+          labelName="Program End "
           updateHandler={updateEducationData}
           value={educationData.programEnd}
           type="month"
         />
         <ResumeInput
           parentKey="gpa"
-          labelName="GPA: "
+          labelName="GPA "
           updateHandler={updateEducationData}
           value={educationData.gpa}
           type="number"
@@ -49,18 +58,19 @@ function ResumeEducation({ educationData, setEducationData }) {
           max={4.0}
           step={0.1}
         />
-      </>
+      </div>
     );
   }
   return (
-    <>
-      <h3>Education Experience</h3>
-      <p><b>School Name: </b>{educationData.schoolName}</p>
-      <p><b>Program Name: </b>{educationData.programName}</p>
-      <p><b>Program Start: </b>{educationData.programStart}</p>
-      <p><b>Program End: </b>{educationData.programEnd}</p>
-      <p><b>GPA: </b>{educationData.gpa}</p>
-    </>
+    <div>
+      <h4 className="font-bold font-size-2">
+        {educationData.schoolName} | <span className="font-normal col-blue">
+          {startDate} - {endDate}
+        </span>
+      </h4>
+      <p><span className="font-bold">Program: </span>{educationData.programName}</p>
+      <p><span className="font-bold">GPA: </span> {educationData.gpa}</p>
+    </div>
   );
 }
 

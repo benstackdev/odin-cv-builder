@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { ResumeContext } from "./Resume";
 import { ResumeInput } from "./inputs/ResumeInput";
+import "../styles/App.css";
+import { Globe, Mail, Phone } from "lucide-react";
 
 function ResumeGeneral({ generalData, setGeneralData }) {
   const isEditing = useContext(ResumeContext);
@@ -13,46 +15,48 @@ function ResumeGeneral({ generalData, setGeneralData }) {
 
   if (isEditing) {
     return (
-      <>
-        <h3>General Info</h3>
+      <div className="
+           flex-center flex-col padding-3 
+           bg-blue border-radius-2 margin-bottom-2 margin-top-2">
         <ResumeInput
           parentKey="name"
-          labelName="Name: "
+          labelName="Name "
           updateHandler={updateGeneralData}
           value={generalData.name}
         />
         <ResumeInput
           parentKey="email"
-          labelName="Email: "
+          labelName="Email "
           updateHandler={updateGeneralData}
           value={generalData.email} type="email"
         />
         <ResumeInput
           parentKey="phoneNumber"
-          labelName="Phone Number: "
+          labelName="Phone Number "
           updateHandler={updateGeneralData}
           value={generalData.phoneNumber}
           type="tel"
         />
         <ResumeInput
           parentKey="website"
-          labelName="Website: "
+          labelName="Website "
           updateHandler={updateGeneralData}
           value={generalData.website}
           type="url"
         />
-      </>
+      </div>
     );
   }
 
   return (
-    <>
-      <h3>General Info:</h3>
-      <p><b>Name: </b>{generalData.name}</p>
-      <p><b>Email: </b>{generalData.email}</p>
-      <p><b>Phone Number: </b>{generalData.phoneNumber}</p>
-      <p><b>Website: </b>{generalData.website}</p>
-    </>
+    <div className="margin-bottom-2">
+      <h1 className="flex-center font-size-5 margin-bottom-1">{generalData.name}</h1>
+      <div className="flex width-fill justify-space-between">
+        <p className="flex-center"><Mail className="margin-right-1" /> {generalData.phoneNumber}</p>
+        <p className="flex-center"><Phone className="margin-right-1" /> {generalData.email}</p>
+        <p className="flex-center"><Globe className="margin-right-1" /> {generalData.website}</p>
+      </div>
+    </div>
   );
 }
 

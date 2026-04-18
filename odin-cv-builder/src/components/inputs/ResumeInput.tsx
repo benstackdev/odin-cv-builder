@@ -10,11 +10,13 @@ function ResumeInput({ parentKey, labelName, updateHandler, ...props }: ResumeIn
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => updateHandler(parentKey, e.target.value);
 
   return (
-    <>
-      <label htmlFor={parentKey}>{labelName}</label>
-      <input {...props} id={parentKey} onChange={onInputChange} />
+    <div className="font-size-3 flex-center flex-col">
+      <label htmlFor={parentKey} className="margin-bottom-1 col-white">{labelName}</label>
+      <input {...props} id={parentKey} onChange={onInputChange}
+        className="width-fill font-size-2 padding-2 border-radius-1"
+      />
       <br />
-    </>
+    </div>
   );
 }
 
