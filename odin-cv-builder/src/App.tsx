@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <Resume />
-      <footer className="margin-top-2">Made by BenStack 2026</footer>
+      <footer className="margin-top-2 no-print">Made by BenStack 2026</footer>
     </>
   );
 }

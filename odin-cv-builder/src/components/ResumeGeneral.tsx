@@ -51,9 +51,9 @@ function ResumeGeneral({ generalData, setGeneralData }) {
   return (
     <div className="margin-bottom-2">
       <h1 className="flex-center font-size-5 margin-bottom-1">{generalData.name}</h1>
-      <div className="flex width-fill justify-space-between">
-        <p className="flex-center"><Mail className="margin-right-1" /> {generalData.phoneNumber}</p>
-        <p className="flex-center"><Phone className="margin-right-1" /> {generalData.email}</p>
+      <div className="flex flex-wrap mobile-flex-col width-fill justify-space-between">
+        <p className="flex-center"><Phone className="margin-right-1" /> {generalData.phoneNumber}</p>
+        <p className="flex-center"><Mail className="margin-right-1" /> {generalData.email}</p>
         <p className="flex-center"><Globe className="margin-right-1" /> {generalData.website}</p>
       </div>
     </div>

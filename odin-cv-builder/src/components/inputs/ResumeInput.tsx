@@ -11,7 +11,7 @@ function ResumeInput({ parentKey, labelName, updateHandler, ...props }: ResumeIn
 
   return (
     <div className="font-size-3 flex-center flex-col">
-      <label htmlFor={parentKey} className="margin-bottom-1 col-white">{labelName}</label>
+      <label htmlFor={parentKey} className="margin-bottom-1 col-white font-bold">{labelName}</label>
       <input {...props} id={parentKey} onChange={onInputChange}
         className="width-fill font-size-2 padding-2 border-radius-1"
       />

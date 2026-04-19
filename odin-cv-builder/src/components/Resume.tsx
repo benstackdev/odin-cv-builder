@@ -1,9 +1,10 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { ResumeGeneral } from "./ResumeGeneral";
 import { ResumeEducation } from "./ResumeEducation";
 import type { ResumeEducationData, ResumeGeneralData, ResumePracticalData } from "./ResumeInterfaces";
 import { ResumePractical } from "./ResumePractical";
 import "../styles/App.css";
+import { Minus, Plus, Save, SquarePen } from "lucide-react";
 
 const ResumeContext = createContext(null);
 
@@ -20,6 +21,11 @@ function Resume() {
   const [practicalDataList, setPracticalDataList] = useState([]);
 
   const toggleEditing = () => setIsEditing(!isEditing);
+
+  useEffect(() => {
+    window.addEventListener("beforeprint", () => setIsEditing(false));
+    window.addEventListener("afterprint", () => setIsEditing(true));
+  }, [setIsEditing]);
 
   // Mutate state functions
   const addEducationExperience = () => setEducationDataList((prevList) => {
@@ -74,22 +80,24 @@ function Resume() {
   const addEdExpButton = isEditing ? (
     <button
       onClick={addEducationExperience}
-      className="bg-green font-size-2 padding-2 margin-1 width-fit align-center border-radius-1">
-      Add Education Experience
+      className="flex bg-green font-size-2 padding-2 margin-1 width-fit align-center border-radius-1"
+      aria-label="Add Education Experience">
+      <Plus color="#2d3142" className="align-center margin-right-1" /> Education Experience
     </button>
   ) : null;
   const addPracticalExpButton = isEditing ? (
     <button
       onClick={addPracticalExperience}
-      className="bg-green font-size-2 padding-2 margin-1 width-fit align-center border-radius-1">
-      Add Practical Experience
+      className="flex bg-green font-size-2 padding-2 margin-1 width-fit align-center border-radius-1"
+      aria-label="Add Practical Experience">
+      <Plus color="#2d3142" className="align-center margin-right-1" /> Practical Experience
     </button>
   ) : null;
 
   return (
     <ResumeContext value={isEditing}>
       <div className="width-fill flex-center flex-col">
-        <h1 className="flex-center margin-bottom-2 font-size-5">Resume Builder</h1>
+        <h1 className="flex-center margin-bottom-2 font-size-5 no-print">Resume Builder</h1>
         <div className="flex-center flex-col padding-1">
           {isEditing ? <h3 className="flex-center font-size-4 margin-top-2 col-blue">General Info</h3> : null}
           <ResumeGeneral
@@ -107,8 +115,10 @@ function Resume() {
               <button
                 onClick={() => deleteEducationExperience(edExp.key)}
                 className="
-                    align-center font-size-2 padding-2 margin-1 
-                    bg-red col-black border-radius-1 width-fit">
+                    flex align-center font-size-2 padding-2 margin-1 
+                    bg-red col-black border-radius-1 width-fit"
+                aria-label="Delete Education Experience">
+                <Minus color="#2d3142" className="align-center margin-right-1" />
                 Delete Education Experience
               </button>
             ) : null;
@@ -137,9 +147,10 @@ function Resume() {
             const delButton = isEditing ? (
               <button
                 onClick={() => deletePracticalExperience(practicalExp.key)}
-                className="font-size-2 padding-2 margin-1 
-                bg-red border-radius-1 width-fit align-center">
-                Delete Practical Experience
+                className="flex font-size-2 padding-2 margin-1 
+                bg-red border-radius-1 width-fit align-center"
+                aria-label="Delete Practical Experience">
+                <Minus color="#2d3142" className="align-center margin-right-1" /> Delete Practical Experience
               </button>
             ) : null;
             return (
@@ -160,8 +171,18 @@ function Resume() {
           <button
             onClick={toggleEditing}
             className="font-size-2 padding-2 margin-2 
-                      border-radius-1 width-fit bg-grey align-center">
-            {isEditing ? "Save" : "Edit"}
+                      border-radius-1 width-fit bg-grey align-center"
+            aria-label={isEditing ? "Save" : "Edit"}>
+            {isEditing ?
+              <div className="flex no-print">
+                <Save color="#2d3142" className="align-center margin-right-1" />
+                <p>Save</p>
+              </div>
+              :
+              <div className="flex no-print">
+                <SquarePen color="#2d3142" className="align-center margin-right-1" />
+                <p>Edit</p>
+              </div>}
           </button>
         </div>
       </div>

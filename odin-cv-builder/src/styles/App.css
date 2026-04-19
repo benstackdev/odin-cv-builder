@@ -55,6 +55,10 @@
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .gap-1 {
   gap: 1rem;
 }
@@ -176,6 +180,10 @@
 }
 
 @media (width < 600px) {
+  .mobile-flex-col {
+    flex-direction: column;
+  }
+
   .margin-1 {
     margin: 0.5rem;
   }
@@ -242,5 +250,11 @@
 
   .padding-3 {
     padding: 1rem;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
   }
 }

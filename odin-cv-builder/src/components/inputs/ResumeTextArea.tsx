@@ -11,7 +11,7 @@ function ResumeTextArea({ parentKey, labelName, updateHandler, ...props }: Resum
 
   return (
     <div className="font-size-3 flex-center flex-col margin-bottom-2">
-      <label htmlFor={parentKey} className="margin-bottom-1 col-white">{labelName}</label>
+      <label htmlFor={parentKey} className="margin-bottom-1 col-white font-bold">{labelName}</label>
       <textarea {...props} id={parentKey} onChange={onInputChange} />
     </div>
   );
