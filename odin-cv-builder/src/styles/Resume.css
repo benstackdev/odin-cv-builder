@@ -1,0 +1,12 @@
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.margin-1 {
+  margin: 1rem;
+}
