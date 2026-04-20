@@ -2,8 +2,15 @@ import { useContext } from "react";
 import { ResumeContext } from "./Resume";
 import { ResumeInput } from "./inputs/ResumeInput";
 import { addMonths, format } from "date-fns";
+import type { ResumeEducationData } from "./ResumeInterfaces";
 
-function ResumeEducation({ educationData, setEducationData }) {
+export type ResumeEducationProps = {
+  educationData: ResumeEducationData,
+  // custom setter; NOT directly pointing to state modifier function in Resume() component
+  setEducationData: (edKey: string, attrKey: string, value: string) => void;
+};
+
+function ResumeEducation({ educationData, setEducationData }: ResumeEducationProps) {
   const isEditing = useContext(ResumeContext);
 
   const updateEducationData = (key: string, value: string) => {

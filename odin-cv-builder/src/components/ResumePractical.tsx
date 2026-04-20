@@ -3,8 +3,14 @@ import { ResumeContext } from "./Resume";
 import { ResumeInput } from "./inputs/ResumeInput";
 import { ResumeTextArea } from "./inputs/ResumeTextArea";
 import { addMonths, format } from "date-fns";
+import type { ResumePracticalData } from "./ResumeInterfaces";
 
-function ResumePractical({ practicalData, setPracticalData }) {
+export type ResumePracticalProps = {
+  practicalData: ResumePracticalData,
+  setPracticalData: (practicalKey: string, attrKey: string, value: string) => void;
+};
+
+function ResumePractical({ practicalData, setPracticalData }: ResumePracticalProps) {
   const isEditing = useContext(ResumeContext);
 
   const updatePracticalData = (key: string, value: string) => {

@@ -3,12 +3,18 @@ import { ResumeContext } from "./Resume";
 import { ResumeInput } from "./inputs/ResumeInput";
 import "../styles/App.css";
 import { Globe, Mail, Phone } from "lucide-react";
+import type { ResumeGeneralData } from "./ResumeInterfaces";
 
-function ResumeGeneral({ generalData, setGeneralData }) {
+export type ResumeGeneralProps = {
+  generalData: ResumeGeneralData,
+  setGeneralData: React.Dispatch<React.SetStateAction<ResumeGeneralData>>;
+};
+
+function ResumeGeneral({ generalData, setGeneralData }: ResumeGeneralProps) {
   const isEditing = useContext(ResumeContext);
 
   const updateGeneralData = (key: string, value: string) => {
-    setGeneralData((prevGeneralData) => {
+    setGeneralData((prevGeneralData: ResumeGeneralData) => {
       return { ...prevGeneralData, [key]: value };
     });
   };

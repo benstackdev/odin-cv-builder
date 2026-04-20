@@ -6,7 +6,7 @@ import { ResumePractical } from "./ResumePractical";
 import "../styles/App.css";
 import { Minus, Plus, Save, SquarePen } from "lucide-react";
 
-const ResumeContext = createContext(null);
+const ResumeContext = createContext(false);
 
 function Resume() {
   const [isEditing, setIsEditing] = useState(true);
@@ -17,8 +17,8 @@ function Resume() {
     website: ""
   } as ResumeGeneralData);
 
-  const [educationDataList, setEducationDataList] = useState([]);
-  const [practicalDataList, setPracticalDataList] = useState([]);
+  const [educationDataList, setEducationDataList] = useState<ResumeEducationData[]>([]);
+  const [practicalDataList, setPracticalDataList] = useState<ResumePracticalData[]>([]);
 
   const toggleEditing = () => setIsEditing(!isEditing);
 
@@ -28,7 +28,7 @@ function Resume() {
   }, [setIsEditing]);
 
   // Mutate state functions
-  const addEducationExperience = () => setEducationDataList((prevList) => {
+  const addEducationExperience = () => setEducationDataList((prevList: ResumeEducationData[]): ResumeEducationData[] => {
     const newKey = crypto.randomUUID();
     const newEducationExperience = {
       key: newKey,
@@ -38,7 +38,7 @@ function Resume() {
       programEnd: "",
       gpa: ""
     } as ResumeEducationData;
-    return [...prevList, newEducationExperience];
+    return [...prevList, newEducationExperience] as ResumeEducationData[];
   });
 
   const changeEducationData = (edKey: string, attrKey: string, value: string) => {
